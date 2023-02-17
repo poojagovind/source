@@ -1,0 +1,39 @@
+def min_window1(str1, str2):
+    size_str1, size_str2 = len(str1), len(str2)
+    length = float('inf')
+    index_s1, index_s2 = 0, 0
+    min_subsequence = ""
+    while index_s1 < size_str1:
+        if str1[index_s1] == str2[index_s2]:
+            index_s2 += 1
+            if index_s2 == size_str2:
+                start, end = index_s1, index_s1+1
+                index_s2 -= 1
+                while index_s2 >= 0:
+                    if str1[start] == str2[index_s2]:
+                        index_s2 -= 1
+                    start -= 1
+                start += 1
+                if end - start < length:
+                    length = end - start
+                    min_subsequence = str1[start:end]
+                index_s1 = start
+                index_s2 = 0
+        index_s1 += 1
+    return min_subsequence
+    
+# Driver code
+def main():
+    str1 = ["abcdebdde", "fgrqsqsnodwmxzkzxwqegkndaa",
+            "qwewerrty", "aaabbcbq", "zxcvnhss", "alpha",
+            "beta", "asd", "abcd"]
+    str2 = ["bde", "kzed", "werty", "abc", "css", "la", "ab", "as", "pp"]
+
+    for i in range(len(str1)):
+        print(i+1, ". \tInput string: (" + str1[i]+", " + str2[i]+")", sep="")
+        print("\tSubsequence string: ", min_window(str1[i], str2[i]))
+        print("-"*100)
+
+
+if __name__ == '__main__':
+    main()
